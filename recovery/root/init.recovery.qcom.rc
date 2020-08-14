@@ -25,6 +25,13 @@
 # ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
+service pulldecryptfiles /sbin/pulldecryptfiles.sh
+    oneshot
+    disabled
+    user root
+    group root
+    seclabel u:r:recovery:s0
+
 on early-init
     mkdir /firmware 0771 system system
 
@@ -37,6 +44,8 @@ on fs
     chmod 0664 /dev/ion
     chown system system /dev/ion
     install_keyring
+
+    start pulldecryptfiles
 
     setprop crypto.ready 1
 
@@ -115,3 +124,6 @@ on property:vendor.sys.listeners.registered=true
     start keymaster-3-0
     start gatekeeper-1-0
     start servicemanager
+    
+on property:ro.crypto.fs_crypto_blkdev=/dev/block/dm-0
+    stop sbinqseecomd
