@@ -4,15 +4,15 @@
 # This allows us to decrypt the device in recovery and still be
 # able to unmount /system when we are done.
 
-mkdir -p /system
-mount -t ext4 -o ro /dev/block/bootdevice/by-name/system /system
+#mkdir -p /system
+#mount -t ext4 -o ro /dev/block/bootdevice/by-name/system /system
 
 # Copy proprietary kernel modules
-cp /system/lib/modules/kscl.ko /sbin/kscl.ko
-cp /system/lib/modules/texfat.ko /sbin/texfat.ko
+#cp /system/lib/modules/kscl.ko /sbin/kscl.ko
+#cp /system/lib/modules/texfat.ko /sbin/texfat.ko
 
 # Load proprietary kernel modules
 insmod /sbin/kscl.ko
 insmod /sbin/texfat.ko
 
-umount /system
+#umount /system
